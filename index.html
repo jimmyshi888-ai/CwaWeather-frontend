@@ -22,7 +22,7 @@
             --ac-cream: #FFFEF2;
             --ac-cream-dark: #E8DFCA;
             --ac-yellow: #F9F195;
-            --ac-gold: #D4AF37; /* 新增金色用於標題裝飾 */
+            --ac-gold: #D4AF37;
             --ac-brown: #796452;
             --ac-blue: #4FB5D9;
             --ac-dark: #58504A;
@@ -66,7 +66,7 @@
         .location-pill-container {
             background: linear-gradient(to bottom, var(--ac-cream), var(--ac-cream-dark));
             color: var(--ac-brown);
-            padding: 0; 
+            padding: 0;
             border-radius: 25px;
             transform: rotate(-2deg);
             border: 3px solid white;
@@ -118,7 +118,7 @@
             border-radius: 15px;
             text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
             font-weight: bold;
-            border: 2px solid rgba(255,255,255,0.3);
+            border: 2px solid rgba(255, 255, 255, 0.3);
         }
 
         /* === 主要內容容器 === */
@@ -128,36 +128,32 @@
             margin: 0 auto;
         }
 
-        /* === 修改重點：獨立的圖片與標題區塊 === */
+        /* === 頂部圖片區塊 === */
         .image-block {
             margin-bottom: 25px;
             border-radius: 25px;
             overflow: hidden;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
             animation: float 4s ease-in-out infinite;
             border: 3px solid white;
             position: relative;
-            /* 設定高度，讓背景圖顯示 */
-            height: 200px; 
-            /* 設定背景圖 */
+            height: 200px;
             background-image: url('./1.png');
             background-size: cover;
             background-position: center top;
         }
 
-        /* 在圖片上加一層漸層遮罩，讓文字更清楚 */
         .image-block::after {
             content: '';
             position: absolute;
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 60%; /* 遮罩高度 */
+            height: 60%;
             background: linear-gradient(to top, rgba(88, 80, 74, 0.8), transparent);
             z-index: 1;
         }
 
-        /* 標題橫幅容器 */
         .image-title-overlay {
             position: absolute;
             bottom: 15px;
@@ -168,19 +164,17 @@
             padding: 0 20px;
         }
 
-        /* 標題文字樣式 */
         .image-title-text {
             font-size: 1.6rem;
             font-weight: 900;
             color: var(--ac-cream);
-            text-shadow: 0 2px 5px rgba(0,0,0,0.8);
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
             letter-spacing: 2px;
             position: relative;
             display: inline-block;
             padding: 5px 15px;
         }
 
-        /* 標題下方的金色裝飾線 */
         .image-title-text::after {
             content: '';
             display: block;
@@ -189,17 +183,28 @@
             background: var(--ac-gold);
             margin: 5px auto 0;
             border-radius: 2px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
         }
 
         /* === 今日焦點卡片 (Hero Card) === */
         .hero-card {
-            background: rgba(255, 254, 242, 0.95);
+            background: linear-gradient(rgba(255, 254, 242, 0.85), rgba(255, 254, 242, 0.85)), url('./3.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+
             border-radius: 35px;
             padding: 30px 25px;
             text-align: center;
@@ -222,6 +227,8 @@
             border: 3px solid white;
             box-shadow: 0 4px 10px rgba(79, 181, 217, 0.3);
             font-size: 1.1rem;
+            z-index: 10;
+            white-space: nowrap;
         }
 
         .hero-temp-container {
@@ -229,7 +236,7 @@
             justify-content: center;
             align-items: center;
             gap: 10px;
-            margin: 20px 0 15px 0;
+            margin: 25px 0 15px 0;
         }
 
         .hero-icon {
@@ -239,8 +246,15 @@
         }
 
         @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
         }
 
         .hero-temp {
@@ -258,6 +272,7 @@
             font-weight: 900;
         }
 
+        /* === Advice Grid (建議區塊容器) === */
         .advice-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -267,6 +282,7 @@
             border-top: 3px dashed #E0D8C0;
         }
 
+        /* === Advice Item (建議小項目) === */
         .advice-item {
             display: flex;
             flex-direction: column;
@@ -275,7 +291,7 @@
             padding: 15px 10px;
             border-radius: 25px;
             border: 2px solid white;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
         }
 
         .advice-icon {
@@ -316,9 +332,20 @@
             display: none;
         }
 
+        /* === 【修改重點】Mini Card (稍後預報小卡片) === */
         .mini-card {
             min-width: 150px;
-            background: rgba(255, 255, 255, 0.95);
+            
+            /* 【修改】加入背景圖 4.png */
+            /* 將白色遮罩的透明度從 0.9 降低到 0.6，讓星星圖案能顯現出來 */
+            background: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), url('./4.png');
+            
+            /* 由於是平鋪圖案，使用 repeat 效果可能比 cover 更好，你可以根據實際效果切換 */
+            /* background-size: cover; */
+            background-repeat: repeat; 
+            background-size: 120px auto; /* 稍微調整圖案大小 */
+            background-position: center;
+            
             border-radius: 28px;
             padding: 25px 15px;
             text-align: center;
@@ -327,9 +354,9 @@
             box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
             transition: transform 0.2s ease;
         }
-        
+
         .mini-card:active {
-             transform: scale(0.95);
+            transform: scale(0.95);
         }
 
         .mini-time {
@@ -348,7 +375,7 @@
         .mini-icon {
             font-size: 3rem;
             margin: 10px 0;
-            filter: drop-shadow(0 3px 3px rgba(0,0,0,0.1));
+            filter: drop-shadow(0 3px 3px rgba(0, 0, 0, 0.1));
         }
 
         .mini-temp {
@@ -391,8 +418,10 @@
 <body>
     <div id="loading" class="loading-screen">
         <div class="loading-overlay"></div>
-        <div style="font-size: 5rem; animation: bounce 2s infinite; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.3));">☁️</div>
-        <p style="color: white; font-weight: 900; margin-top: 25px; font-size: 1.2rem; text-shadow: 0 3px 10px rgba(0,0,0,0.7); letter-spacing: 2px;">
+        <div style="font-size: 5rem; animation: bounce 2s infinite; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.3));">
+            ☁️</div>
+        <p
+            style="color: white; font-weight: 900; margin-top: 25px; font-size: 1.2rem; text-shadow: 0 3px 10px rgba(0,0,0,0.7); letter-spacing: 2px;">
             正在觀測提瓦特的雲流...</p>
     </div>
 
@@ -419,8 +448,8 @@
 
         <div id="heroCard"></div>
 
-        <h3 class="section-title">以後的天氣，明天再來探索吧~</h3>
-        
+        <h3 class="section-title">以後的天氣，明天再來查看吧~</h3>
+
         <div class="scroll-container" id="futureForecasts"></div>
 
     </div>
@@ -430,60 +459,89 @@
         // 【重要】目前設定為本機測試用。要部署時請改回 Zeabur 網址。
         const BASE_API_URL = "http://localhost:3000/api/weather/";
         // const BASE_API_URL = "https://weather-taichung-jimmy.zeabur.app/api/weather/";
-        
+
         const citySelect = document.getElementById('citySelect');
 
         // --- 輔助函式 ---
         // --- 輔助函式：取得天氣圖示 (元素化版本) ---
         function getWeatherIcon(weather) {
             if (!weather) return "🌤️"; // 預設
-            
+
             // 晴天：烈日當空 (類似火元素氛圍)
             if (weather.includes("晴")) return "☀️";
-            
+
             // 多雲或陰天：雲霧遮蔽 (類似風元素流動)
             if (weather.includes("多雲")) return "⛅";
             if (weather.includes("陰")) return "☁️";
-            
+
             // 雨天：掛上「潮濕」狀態 (水元素圖標)
             if (weather.includes("雨")) return "💧";
-            
+
             // 雷雨：危險的雷擊 (雷元素圖標)
             if (weather.includes("雷")) return "⚡";
-            
+
             return "🌤️";
         }
 
+        // --- 取得原神風格的天氣描述 ---
+        function getGenshinWeatherDesc(weather) {
+            if (!weather) return weather;
+            
+            if (weather.includes("陰")) {
+                return "天空有些陰沉，像是被深淵氣息籠罩...";
+            }
+            if (weather.includes("雨")) {
+                return "水元素充盈，出門小心遇上史萊姆。";
+            }
+            if (weather.includes("雷")) {
+                return "雷元素躁動不安，避雷針準備好了嗎？";
+            }
+            if (weather.includes("晴")) {
+                return "適合冒險的艷陽天！";
+            }
+            if (weather.includes("多雲")) {
+                return "雲霧繚繞，視野稍微受阻。";
+            }
+            
+            // 如果沒有對應的特殊描述，就回傳原本的
+            return weather;
+        }
+
         function getAdvice(rainProb, maxTemp) {
-    let rainIcon = "🐦"; // 用鳥代表好天氣
-    let rainText = "天氣不錯，提米這時候應該在橋上餵鴿子了。";
+            let rainIcon = "🐦"; // 用鳥代表好天氣
+            let rainText = "天氣不錯，提米這時候應該在橋上餵鴿子了。";
 
-    if (parseInt(rainProb) > 30) {
-        rainIcon = "💧";
-        rainText = "外頭雨勢不小，不想被淋成落湯雞的話，就去找鍾離先生借個盾吧（或者帶把傘）。";
-    }
+            if (parseInt(rainProb) > 30) {
+                rainIcon = "💧";
+                rainText = "外頭雨勢不小，不想被淋成落湯雞的話，就去找鍾離先生借個盾吧（或者帶把傘）。";
+            }
 
-    let clothIcon = "✨";
-    let clothText = "不冷也不熱，這種天氣最適合跟著派蒙去尋找寶箱了！";
+            let clothIcon = "✨";
+            let clothText = "不冷也不熱，這種天氣最適合跟著派蒙去尋找寶箱了！";
 
-    if (parseInt(maxTemp) >= 28) {
-        clothIcon = "🥵";
-        clothText = "好熱！感覺要燃燒起來了，這時候真希望能有七七在身邊幫忙降溫呢。";
-    } else if (parseInt(maxTemp) <= 20) {
-        clothIcon = "🧣";
-        clothText = "嘶——好冷！快裹緊你的外套，這種天氣連迪盧克老爺都不想在外面巡邏吧。";
-    }
+            if (parseInt(maxTemp) >= 28) {
+                clothIcon = "🥵";
+                clothText = "好熱！感覺要燃燒起來了，這時候真希望能有七七在身邊幫忙降溫呢。";
+            } else if (parseInt(maxTemp) <= 20) {
+                clothIcon = "🧣";
+                clothText = "嘶——好冷！快裹緊你的外套，這種天氣連迪盧克老爺都不想在外面巡邏吧。";
+            }
 
-    return { rainIcon, rainText, clothIcon, clothText };
-}
+            return { rainIcon, rainText, clothIcon, clothText };
+        }
 
+        // --- 取得原神風格的時間段描述 ---
         function getTimePeriod(startTime) {
             const hour = new Date(startTime).getHours();
-            if (hour >= 5 && hour < 11) return "早晨";
-            if (hour >= 11 && hour < 14) return "中午";
-            if (hour >= 14 && hour < 18) return "下午";
-            if (hour >= 18 && hour < 23) return "晚上";
-            return "深夜";
+            
+            // 使用更具帶入感的時段描述
+            if (hour >= 5 && hour < 11) return "日出之時"; // 早晨
+            if (hour >= 11 && hour < 14) return "正午時分"; // 中午
+            if (hour >= 14 && hour < 18) return "午後時光"; // 下午
+            if (hour >= 18 && hour < 23) return "華燈初上"; // 晚上
+            
+            // 深夜 (23點到隔天5點)
+            return "夜深人靜"; 
         }
 
         // --- 渲染函式 ---
@@ -495,6 +553,8 @@
             const advice = getAdvice(current.rain, current.maxTemp);
             const period = getTimePeriod(current.startTime);
             const avgTemp = Math.round((parseInt(current.maxTemp) + parseInt(current.minTemp)) / 2);
+            // 取得原神風天氣描述
+            const genshinDesc = getGenshinWeatherDesc(current.weather);
 
             document.getElementById('heroCard').innerHTML = `
                         <div class="hero-card">
@@ -503,7 +563,7 @@
                                 <div class="hero-icon">${getWeatherIcon(current.weather)}</div>
                                 <div class="hero-temp">${avgTemp}°</div>
                             </div>
-                            <div class="hero-desc">${current.weather}</div>
+                            <div class="hero-desc">${genshinDesc}</div>
                             
                             <div class="advice-grid">
                                 <div class="advice-item">
@@ -525,11 +585,15 @@
             const todayDate = new Date().getDate();
 
             others.forEach(f => {
+                // 這裡會自動使用 getTimePeriod 產生如「華燈初上」的文案
                 let p = getTimePeriod(f.startTime);
                 const fDate = new Date(f.startTime);
+                
+                // 如果不是今天，就加上「明天」前綴
                 if (fDate.getDate() !== todayDate) {
                     p = "明天" + p;
                 }
+                
                 scrollContainer.innerHTML += `
                             <div class="mini-card">
                                 <div class="mini-time">${p}</div>
@@ -560,12 +624,12 @@
             try {
                 // 縮短模擬延遲時間，讓體驗更流暢
                 const delayPromise = new Promise(resolve => setTimeout(resolve, 500));
-                
+
                 const fetchPromise = fetch(fullUrl).then(res => {
                     if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
                     return res.json();
                 });
-                
+
                 const [_, json] = await Promise.all([delayPromise, fetchPromise]);
 
                 if (json.success) {
@@ -587,4 +651,5 @@
         document.addEventListener("DOMContentLoaded", fetchWeather);
     </script>
 </body>
+
 </html>
