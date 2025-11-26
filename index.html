@@ -16,6 +16,7 @@
         rel="stylesheet">
 
     <style>
+        /* === CSS 變數設定 (原神風格色票) === */
         :root {
             --ac-green: #7DE1A9;
             --ac-cream: #FFFEF2;
@@ -25,6 +26,7 @@
             --ac-dark: #58504A;
         }
 
+        /* === 基礎設定 === */
         * {
             margin: 0;
             padding: 0;
@@ -34,7 +36,7 @@
 
         body {
             font-family: 'Zen Maru Gothic', sans-serif;
-            /* 請確保這裡的圖片路徑是正確的 */
+            /* 背景圖設定，請確保 2.png 存在 */
             background-image: url('./2.png');
             background-size: cover;
             background-position: center;
@@ -47,7 +49,7 @@
             padding-bottom: 20px;
         }
 
-        /* 頂部狀態列 */
+        /* === 頂部狀態列 === */
         .status-bar {
             display: flex;
             justify-content: space-between;
@@ -60,7 +62,7 @@
             z-index: 100;
         }
 
-        /* === 修改點 1: 新增下拉選單容器樣式 (取代原本的 location-pill) === */
+        /* === 下拉選單容器樣式 (取代原本的 location-pill) === */
         .location-pill-container {
             background: var(--ac-yellow);
             color: var(--ac-brown);
@@ -76,7 +78,7 @@
             align-items: center;
         }
 
-        /* === 修改點 2: 美化 Select 下拉選單 === */
+        /* === 美化 Select 下拉選單 === */
         .location-select {
             /* 移除瀏覽器預設外觀 */
             appearance: none;
@@ -119,18 +121,18 @@
             text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
         }
 
+        /* === 主要內容容器 === */
         .container {
             padding: 20px;
             max-width: 600px;
             margin: 0 auto;
         }
 
-        /* 獨立的圖片區塊 */
+        /* === 獨立的圖片區塊 === */
         .image-block {
             margin-bottom: 25px;
             border-radius: 25px;
             overflow: hidden;
-            /* 這裡加了一點陰影讓圖片跳出來 */
             box-shadow: 0 10px 20px rgba(0,0,0,0.15);
             animation: float 4s ease-in-out infinite;
         }
@@ -146,7 +148,7 @@
             50% { transform: translateY(-10px); }
         }
 
-        /* 今日焦點卡片 */
+        /* === 今日焦點卡片 (Hero Card) === */
         .hero-card {
             background: rgba(255, 254, 242, 0.95);
             border-radius: 35px;
@@ -236,17 +238,18 @@
             line-height: 1.2;
         }
 
-        /* === 修改點：調整區塊標題樣式 === */
+        /* === 區塊標題樣式 === */
         .section-title {
-            font-size: 1.3rem; /* 稍微加大字體 */
+            font-size: 1.3rem;
             color: white;
             margin-bottom: 15px;
-            margin-left: 5px; /* 稍微靠左一點 */
+            margin-left: 5px;
             font-weight: 900;
-            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.6); /* 加強陰影提高可讀性 */
-            letter-spacing: 1px; /* 增加一點字距 */
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
+            letter-spacing: 1px;
         }
 
+        /* === 橫向捲動容器 (未來預報) === */
         .scroll-container {
             display: flex;
             overflow-x: auto;
@@ -254,9 +257,8 @@
             padding-bottom: 10px;
             scrollbar-width: none;
             -ms-overflow-style: none;
-             /* 增加一點左右 padding 讓滑動時不會貼邊 */
-             padding-left: 5px;
-             padding-right: 5px;
+            padding-left: 5px;
+            padding-right: 5px;
         }
 
         .scroll-container::-webkit-scrollbar {
@@ -296,13 +298,14 @@
             color: var(--ac-dark);
         }
 
-        /* Loading 畫面 */
+        /* === Loading 畫面 === */
         .loading-screen {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
+            /* Loading 畫面也使用背景圖 */
             background-image: url('./2.png');
             background-size: cover;
             background-position: center;
@@ -353,22 +356,23 @@
             <img src="./1.png" alt="Character">
         </div>
 
-        <div id="heroCard">
-            </div>
+        <div id="heroCard"></div>
 
         <h3 class="section-title">後面的天氣，以後再來探索吧</h3>
         
-        <div class="scroll-container" id="futureForecasts">
-            </div>
+        <div class="scroll-container" id="futureForecasts"></div>
 
     </div>
 
     <script>
-        // === 修改點 4: 改為基礎 API URL，不包含城市名 ===
+        // === 設定後端 API 基礎網址 ===
+        // 請確保您的後端已經部署到 Zeabur 並且該網址是正確的
         const BASE_API_URL = "https://weather-taichung-jimmy.zeabur.app/api/weather/";
+        
         // 取得下拉選單元素
         const citySelect = document.getElementById('citySelect');
 
+        // --- 輔助函式：取得天氣圖示 ---
         function getWeatherIcon(weather) {
             if (!weather) return "🌤️";
             if (weather.includes("晴")) return "☀️";
@@ -379,9 +383,11 @@
             return "🌤️";
         }
 
+        // --- 輔助函式：取得穿搭與帶傘建議 ---
         function getAdvice(rainProb, maxTemp) {
             let rainIcon = "🌂";
             let rainText = "不用帶傘";
+            // 降雨機率大於 30% 建議帶傘
             if (parseInt(rainProb) > 30) {
                 rainIcon = "☂️";
                 rainText = "記得帶傘！";
@@ -389,6 +395,7 @@
 
             let clothIcon = "👕";
             let clothText = "舒適穿搭";
+            // 簡單的溫度判斷
             if (parseInt(maxTemp) >= 28) {
                 clothIcon = "🎽";
                 clothText = "短袖出發";
@@ -400,6 +407,7 @@
             return { rainIcon, rainText, clothIcon, clothText };
         }
 
+        // --- 輔助函式：取得時段描述 (早晨/中午/下午/晚上/深夜) ---
         function getTimePeriod(startTime) {
             const hour = new Date(startTime).getHours();
             if (hour >= 5 && hour < 11) return "早晨";
@@ -409,14 +417,16 @@
             return "深夜";
         }
 
+        // --- 核心函式：將天氣資料渲染到畫面上 ---
         function renderWeather(data) {
             const forecasts = data.forecasts;
-            const current = forecasts[0];
-            const others = forecasts.slice(1);
+            const current = forecasts[0]; // 取第一筆資料當作目前天氣
+            const others = forecasts.slice(1); // 剩下的當作未來預報
 
-            // 1. 渲染 Hero Card (主畫面)
+            // 1. 渲染 Hero Card (主畫面焦點卡片)
             const advice = getAdvice(current.rain, current.maxTemp);
             const period = getTimePeriod(current.startTime);
+            // 計算平均溫度
             const avgTemp = Math.round((parseInt(current.maxTemp) + parseInt(current.minTemp)) / 2);
 
             document.getElementById('heroCard').innerHTML = `
@@ -430,4 +440,109 @@
                             
                             <div class="advice-grid">
                                 <div class="advice-item">
-                                    <div class="
+                                    <div class="advice-icon">${advice.rainIcon}</div>
+                                    <div class="advice-text">${advice.rainText}</div>
+                                    <div style="font-size:0.7rem; color:#999">降雨率 ${current.rain}</div>
+                                </div>
+                                <div class="advice-item">
+                                    <div class="advice-icon">${advice.clothIcon}</div>
+                                    <div class="advice-text">${advice.clothText}</div>
+                                    <div style="font-size:0.7rem; color:#999">最高溫 ${current.maxTemp}°</div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+
+            // 2. 渲染未來預報 (小卡片)
+            const scrollContainer = document.getElementById('futureForecasts');
+            scrollContainer.innerHTML = ''; // 清空舊資料
+
+            const todayDate = new Date().getDate();
+
+            others.forEach(f => {
+                let p = getTimePeriod(f.startTime);
+                const fDate = new Date(f.startTime);
+                // 如果日期不是今天，就加上「明天」前綴
+                if (fDate.getDate() !== todayDate) {
+                    p = "明天" + p;
+                }
+
+                scrollContainer.innerHTML += `
+                            <div class="mini-card">
+                                <div class="mini-time">${p}</div>
+                                <div class="mini-icon">${getWeatherIcon(f.weather)}</div>
+                                <div class="mini-temp">${f.minTemp}° - ${f.maxTemp}°</div>
+                                <div style="font-size:0.8rem; color:#888; margin-top:5px;">💧${f.rain}</div>
+                            </div>
+                        `;
+            });
+
+            // 3. 更新頂部的日期顯示
+            const now = new Date();
+            const month = now.getMonth() + 1;
+            const date = now.getDate();
+            const dayIndex = now.getDay();
+            const days = ["週日", "週一", "週二", "週三", "週四", "週五", "週六"];
+
+            document.getElementById('updateTime').textContent = `${month}月${date}日 ${days[dayIndex]}`;
+        }
+
+        // --- 核心函式：向後端 API 抓取天氣資料 ---
+        async function fetchWeather() {
+            // 1. 開始抓取前：顯示 Loading 畫面，隱藏主內容
+            document.getElementById('loading').style.display = 'flex';
+            document.getElementById('mainContent').style.display = 'none';
+
+            // 2. 取得目前下拉選單選中的城市代碼 (例如 kaohsiung)
+            const selectedCity = citySelect.value;
+            // 3. 組合出完整的 API 網址 (例如 .../api/weather/kaohsiung)
+            const fullUrl = BASE_API_URL + selectedCity;
+
+            console.log(`準備抓取 ${selectedCity} 的資料，網址: ${fullUrl}`);
+
+            try {
+                // 為了讓 Loading 動畫展示一下，模擬一個 0.8 秒的延遲 (可自行移除)
+                const delayPromise = new Promise(resolve => setTimeout(resolve, 800));
+                
+                // 發送請求
+                const fetchPromise = fetch(fullUrl).then(res => {
+                    // 檢查 HTTP 狀態碼是否成功
+                    if (!res.ok) {
+                        throw new Error(`HTTP error! status: ${res.status}`);
+                    }
+                    return res.json();
+                });
+                
+                // 等待請求和延遲都完成
+                const [_, json] = await Promise.all([delayPromise, fetchPromise]);
+
+                console.log("資料抓取成功:", json);
+
+                if (json.success) {
+                    // 4. 成功獲取資料，開始渲染畫面
+                    renderWeather(json.data);
+                    // 5. 渲染完成後：隱藏 Loading，顯示主內容
+                    document.getElementById('loading').style.display = 'none';
+                    document.getElementById('mainContent').style.display = 'block';
+                } else {
+                    // 如果後端回傳 success: false
+                    throw new Error(json.message || "API Error");
+                }
+            } catch (e) {
+                console.error("抓取失敗:", e);
+                alert(`天氣資料讀取失敗，狸克把網路線咬斷了！\n錯誤原因: ${e.message}`);
+                // 發生錯誤也要關掉 loading，顯示主內容 (雖然可能是空的)
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('mainContent').style.display = 'block';
+            }
+        }
+
+        // === 事件監聽 ===
+        // 當下拉選單的值改變時，重新執行 fetchWeather
+        citySelect.addEventListener('change', fetchWeather);
+
+        // 當網頁 HTML 載入完成後，執行第一次 fetchWeather (預設抓取高雄)
+        document.addEventListener("DOMContentLoaded", fetchWeather);
+    </script>
+</body>
+</html>
