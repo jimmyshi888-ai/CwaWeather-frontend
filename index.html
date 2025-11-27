@@ -452,17 +452,20 @@
 
         // 【新增】定義城市列表
         const cities = [
-            { code: 'kaohsiung', name: '高雄市' },
             { code: 'taipei', name: '臺北市' },
-            { code: 'tainan', name: '臺南市' },
-            { code: 'taichung', name: '臺中市' },
-            { code: 'yilan', name: '宜蘭縣' },
+            { code: 'newtaipei', name: '新北市' },
+            { code: 'taoyuan', name: '桃園市' },
             { code: 'hsinchu', name: '新竹市' },
-            { code: 'taoyuan', name: '桃園市' }
-            // 你可以在這裡繼續添加更多城市
+            { code: 'hsinchucounty', name: '新竹縣' },
+            { code: 'miaoli', name: '苗栗縣' },
+            { code: 'taichung', name: '臺中市' },
+            { code: 'changhua', name: '彰化縣' },
+            { code: 'tainan', name: '臺南市' },
+            { code: 'kaohsiung', name: '高雄市' },
+            { code: 'yilan', name: '宜蘭縣' }
         ];
 
-        let currentSelectedCityCode = cities[0].code; // 預設選取第一個城市
+        let currentSelectedCityCode = cities[6].code; // 預設選取第一個城市
 
         // --- 輔助函式：取得天氣圖示 (元素化版本) ---
         function getWeatherIcon(weather) {
